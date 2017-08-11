@@ -1,0 +1,55 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Log In | {{ block.super }}{% endblock %}
+
+<style>
+{% block style %}
+.logpic{
+  background: url("{% static './img/flat-map.jpg' %}") no-repeat;
+  background-size: cover;
+  width: 150em;
+  height: 60em;
+  margin-left: -20em;
+}
+
+.forgotpass{
+  text-align: center;
+  height: 10em;
+  padding-top: 2em;
+}
+
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<div class='row'>
+  <div class='col-sm-6 col-sm-offset-3'>
+    <h1>Login</h1>
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Submit' %}" />
+      <input type="hidden" name="next" value="{{ next }}" />
+    </form>
+  </div>
+</div>
+
+<hr/>
+<div class='row'>
+  <div class='forgotpass' class='col-sm-6 col-sm-offset-3 text-align-center'>
+    <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+    <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+  </div>
+</div>
+
+<div class='logpic'>
+
+</div>
+
+{% endblock %}

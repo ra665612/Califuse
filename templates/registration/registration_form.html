@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+{% load crispy_forms_tags %}
+
+{% block title %}Register | {{ block.super }}{% endblock %}
+
+<style>
+{% block style %}
+.rgstrpic{
+  background: url("{% static './img/MilkyWayPan.jpg' %}") no-repeat;
+  background-size: cover;
+  width: 150em;
+  height: 60em;
+  margin-left: -20em;
+  margin-top: -2em;
+}
+
+.row{
+  padding-top: 3em;
+}
+
+.need2log{
+  text-align: center;
+  height: 6em;
+  padding-top: -1em;
+}
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<!-- <div class='rgstrpic'>
+
+</div> -->
+
+<div class='row'>
+  <div class='col-sm-6 col-sm-offset-3'>
+    <h1>Register for Califuse!</h1>
+    <form method="post" action=".">
+      {% csrf_token %}
+      {{ form|crispy }}
+
+      <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Join' %}" />
+    </form>
+  </div>
+</div>
+
+<hr/>
+<div class='row'>
+  <div class='col-sm-6 col-sm-offset-3 text-align-center'>
+    <p class="need2log">Need to <a href="{% url 'auth_login' %}">Login</a>?</p>
+  </div>
+</div>
+
+<div class='rgstrpic'>
+
+</div>
+
+{% endblock %}

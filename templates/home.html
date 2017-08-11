@@ -1,0 +1,139 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Welcome | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.navbar {
+  display: none;
+}
+
+.footer {
+  display: none;
+}
+
+/*.thankyou{
+  height: 5em;
+  background-color: blue;
+  text-align: center;
+}
+
+.thankyou img{
+  height: 5em;
+}*/
+
+
+.home{
+  background: url({% static 'img/unsplash_desk.jpg' %}) no-repeat;
+  background-size: cover;
+  color: #F0F0F0;
+  height: 55em;
+  text-align: center;
+}
+
+.home img{
+  height: 12.5em;
+  padding-top: 2em;
+  text-align: center;
+}
+
+.home h1{
+  /*padding-top: 2em;*/
+  font-size: 3.5em;
+}
+
+.home h3{
+  padding-top: 1em;
+  font-size: 2.5em;
+}
+
+.home h2{
+  padding-top: 3em;
+  font-size: 1.5em;
+  /*letter-spacing: 1em;*/
+}
+
+.home p{
+  /*padding-top: 1em;*/
+  font-size: 1.5em;
+}
+
+.home form{
+  color: white;
+}
+
+.invite{
+  background-color: cyan;
+}
+
+.submit_email{
+  font-size: 1em;
+}
+
+#enter-email{
+  padding-top: 2em;
+}
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<!-- <div class="thankyou">
+  <div class="container">
+    <img src="{% static 'img/califuse2.PNG' %}" />
+  </div>
+</div> -->
+<div class="home">
+  <div class="container">
+    <!-- <div class="logo_head">
+
+    </div> -->
+    <div class="landhead">
+      <img src="{% static 'img/califuse_home.png' %}" />
+      <h1>Introducing Califuse</h1>
+      <h3>A platform for students</h3>
+      <p>
+        Share your work with friends, industry professionals, and companies.<br />Connect with others to see what they're working on.</h3>
+      </p>
+      <br />
+      <h2>
+        Califuse is coming soon and will launch in private beta.
+        <br />Get your invitation and reserve your spot.
+      </h2>
+    </div>
+    <div class="col-sm-4 col-sm-offset-4">
+      <form class="form-horizontal" method="POST" action="/">
+        <div class="form-group form-group-md" id="enter-email">
+          {% csrf_token %}
+          {% if form.email.errors %}
+            {% for err in form.email.errors %}
+              <div class="alert alert-warning" role="alert">Email is required</div>
+            {% endfor %}
+          {% endif %}
+          <div class="input-group">
+            <input class="form-control" type="email" name="email" placeholder="Enter your email" />
+              <span class="input-group-btn">
+                <input type="submit" value="Request invitation" class="btn btn-default btn-block " />
+              </span>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<!-- <div class="cartoon">
+  <div class="container">
+
+  </div>
+</div> -->
+
+{% endblock %}

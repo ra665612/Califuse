@@ -1,0 +1,213 @@
+{% extends "base.html" %}
+
+{% block head_title %}Profile | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+body{
+  background-color: #F2F2F2;
+}
+
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<body>
+
+<div class="mainbody container-fluid">
+    <div class="row">
+        <div class="navbar-wrapper">
+          <div style="padding-top:50px;"> </div>
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+              <div class="panel panel-default">
+               <div class="panel-body">
+                   <div class="media">
+                       <div align="center">
+                           <img class="thumbnail img-responsive" src="{{ user.userprofile.image.url }}" width="300px" height="300px">
+                       </div>
+                       <div class="media-body">
+                           <hr>
+                           <h3><strong>Bio</strong></h3>
+                           <p>{{ user.userprofile.bio }}</p>
+                           <hr>
+                           <h3><strong>Location</strong></h3>
+                           <p></p>
+                           <hr>
+                           <h3><strong>Gender</strong></h3>
+                           <p></p>
+                           <hr>
+                           <h3><strong>Birthday</strong></h3>
+                           <p></p>
+                       </div>
+                   </div>
+               </div>
+           </div>
+       </div>
+     </div>
+     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <span>
+                        <h1 class="panel-title pull-left" style="font-size:30px;">{{ user.first_name }} {{ user.last_name }}<small>  {{ user.email }}</small> <i class="fa fa-check text-success" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="John Doe is sharing with you"></i></h1>
+                        <div class="dropdown pull-right">
+                            <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                Friends
+                                <span class="caret"></span>
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+                                <li><a href="#">Familly</a></li>
+                                <li><a href="#"><i class="fa fa-fw fa-check" aria-hidden="true"></i> Friends</a></li>
+                                <li><a href="#">Work</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="#"><i class="fa fa-fw fa-plus" aria-hidden="true"></i> Add a new aspect</a></li>
+                            </ul>
+                        </div>
+                    </span>
+                    <br><br>
+                    <i class="fa fa-tags" aria-hidden="true"></i> <a href="/tags/diaspora" class="tag">#diaspora</a> <a href="/tags/hashtag" class="tag">#hashtag</a> <a href="/tags/caturday" class="tag">#caturday</a>
+                    <br><br><hr>
+                    <span class="pull-left">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos</a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts</a>
+                    </span>
+                    <span class="pull-right">
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
+                        <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
+                        <!-- <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a> -->
+                        <!-- <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-ban" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Ignore"></i></a> -->
+                    </span>
+                </div>
+            </div>
+      </div>
+      <div class="col-md-8">
+          <h2>Post</h2></h2>
+          <form method="post">
+              {% csrf_token %}
+              {{ form.post }}
+              <br>
+              <button type="submit">Submit</button>
+          </form>
+          <h2>{{ text }}</h2>
+          {% for post in posts %}
+              <h1>{{ post.post }}</h1>
+              <p>Posted by {{ post.user.get_full_name }} on {{ post.created }}</p>
+          {% endfor %}
+      </div>
+    </div>
+ </div>
+
+<!-- <img src="{{ user.userprofile.image.url }}" width="240">
+{{ user }} <br>
+{{ user.email }} <br>
+{{ user.first_name }} <br>
+{{ user.last_name }} <br>
+{{ user.userprofile }} <br> -->
+</body>
+{% endblock %}
+
+
+
+<div class="col-md-8">
+  <h2>Post</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.post }}
+    <br>
+    <button type="submit">Submit</button>
+  </form>
+    <h2>{{ text }}</h2>
+    {% for post in posts %}
+      <h1>{{ post.post }}</h1>
+      <p>Posted by {{ post.user.get_full_name }} on {{ post.created }}</p>
+    {% endfor %}
+</div>
+</div>
+</div>
+
+
+
+<div id="overlay">
+  <div class="col-md-8">
+    <h2>Post</h2>
+    <form method="post" class="modal-content">
+      <span class="close">&times;</span>
+      {% csrf_token %}
+      {{ form.post }}
+      <br>
+      <button type="submit" class="texter">Submit</button>
+    </form>
+  </div>
+</div>
+{% for post in posts %}
+<div class="panel panel-default">
+        <div class="panel-body">
+            <div class="pull-left">
+                <a href="#">
+                    <img class="media-object img-circle" src="{{ user.userprofile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                </a>
+            </div>
+            <h4><a href="#" style="text-decoration:none;"><strong>{{ post.user.get_full_name }}</strong></a> – <small><small><a href="#" style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.created }}</i></a></small></small></h4>
+            <h1>{{ post.post }}</h1>
+            <span>
+                <div class="navbar-right">
+                    <div class="dropdown">
+                        <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                            <i class="fa fa-cog" aria-hidden="true"></i>
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" aria-labelledby="dd1" style="float: right;">
+                            <li><a href="#"><i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i> Report</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-ban" aria-hidden="true"></i> Ignore</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-bell" aria-hidden="true"></i> Enable notifications for this post</a></li>
+                            <li><a href="#"><i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i> Hide</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#"><i class="fa fa-fw fa-trash" aria-hidden="true"></i> Delete</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </span>
+            <hr>
+            <div class="post-content">
+                <p id="texter">{{ text }}</p>
+            </div>
+
+            <div>
+                <div class="pull-right btn-group-xs">
+                    <a class="btn btn-default btn-xs"><i class="fa fa-heart" aria-hidden="true"></i> Like</a>
+                    <a class="btn btn-default btn-xs"><i class="fa fa-retweet" aria-hidden="true"></i> Reshare</a>
+                    <a class="btn btn-default btn-xs"><i class="fa fa-comment" aria-hidden="true"></i> Comment</a>
+                </div>
+                <div class="pull-left">
+                    <p class="text-muted" style="margin-left:5px;"><i class="fa fa-globe" aria-hidden="true"></i> Public</p>
+                </div>
+                <br>
+            </div>
+            <hr />
+            <div class="media">
+                <div class="pull-left">
+                    <a href="#">
+                        <img class="media-object img-circle" src="{{ user.userprofile.image.url }}" width="35px" height="35px" style="margin-left:3px; margin-right:-5px;">
+                    </a>
+                </div>
+                <div class="media-body">
+                    <textarea class="form-control" rows="1" placeholder="Comment"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endfor %}
+
+
+</div>
+</div>
+</div>
+
+<script>
+function overlay() {
+el = document.getElementById("overlay");
+el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+}
+</script>

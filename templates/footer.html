@@ -1,0 +1,143 @@
+{% load staticfiles %}
+
+<style>
+{% block style %}
+
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.footer{
+  position: relative;
+  text-align: center;
+  height: 20em;
+  background-color: #212121;
+  margin-top: -1.5em;
+}
+
+.row{
+  padding-top: 1em;
+  list-style-type: none;
+}
+
+.row:hover{
+  color: grey;
+}
+
+.foothead{
+  color: white;
+  font-size: 1.25em;
+  padding-top: 1em;
+  padding-left: -3em;
+}
+
+.foothead2{
+  color: white;
+  font-size: 1.25em;
+}
+
+.foothead3{
+  color: white;
+  font-size: 1.25em;
+  padding-top: 1em;
+  padding-right: -3em;
+}
+
+ul.nobullet{
+  list-style-type: none;
+  padding-right: 3em;
+  font-size: 1.125em;
+  color: #BABABA;
+}
+
+.nobullet:hover{
+  list-style-type: none;
+  color: white;
+}
+
+.nobullet a{
+  color: #BABABA;
+}
+
+
+.footer li{
+  padding-top: .5em;
+}
+
+.list{
+  list-style-type: none;
+}
+
+.list:hover{
+  color: cyan;
+}
+
+.footemail{
+  color: #BABABA;
+  padding-top: 1em;
+}
+
+.social-icon{
+  list-style-type: none;
+  color: #BABABA;
+  letter-spacing: 2em;
+  padding-left: 3em;
+}
+
+.social-icon:hover{
+  color: white;
+}
+
+.legal{
+  color: #BABABA;
+  padding-top: 2em;
+}
+
+.privacy{
+  list-style-type: none;
+  color: #BABABA;
+  border-bottom: thin solid white;
+}
+
+.privacy:hover{
+  color: white;
+}
+
+{% endblock %}
+</style>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-3">
+        <h2 class="foothead">USEFUL LINKS</h2>
+        <ul class="nobullet">
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about' %}">ABOUT</a></li>
+          <li><a href="{% url 'contact' %}">CONTACT</a></li>
+          <li><a href="{% url 'faq' %}">FAQ</a></li>
+          <li>BLOG</li>
+        </ul>
+      </div>
+      <div class="col-sm-6">
+        <h2 class="foothead2">CONTACT US</h2>
+        <p class="footemail">Contact@Califuse.com</p>
+        <br><br>
+        <h2 class="foothead2">FOLLOW US</h2>
+        <br>
+        <a class="social-icon" href="https://www.facebook.com/Califusecom-1958625571024601/?ref=aymt_homepage_panel"><i class="fa fa-facebook fa-lg"></i></a>
+        <a class="social-icon" href="http://angellist.com/califuse"><i class="fa fa-angellist fa-lg"></i></a>
+        <a class="social-icon" href="https://twitter.com/CaliFuseJobs"><i class="fa fa-twitter fa-lg"></i></a>
+        <a class="social-icon" href="https://www.instagram.com/califuseco/?hl=en"><i class="fa fa-instagram fa-lg"></i></a>
+        <a class="social-icon" href="https://www.linkedin.com/company-beta/22312259/"><i class="fa fa-linkedin fa-lg"></i></a>
+      </div>
+      <div class="col-sm-3">
+        <h2 class="foothead3">LEGAL</h2>
+        <p class="legal">Copyright <i class="fa fa-copyright fa-lg"></i> 2017</p><br>
+        <a class="privacy" href="{% url 'Privacy_Policy' %}">Privacy Policy</a>
+      </div>
+    </div>
+  </div>
+</div>

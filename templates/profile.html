@@ -1,0 +1,287 @@
+{% extends "base.html" %}
+
+{% block head_title %}{{user.username}} | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+/*body{
+  margin:0;
+  padding: 0;
+}*/
+
+.container {
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.row1{
+  margin-top: -20em;
+}
+
+.jumbotron {
+  background: url("{{ user.userprofile.backimage.url }}") no-repeat;
+  background-color: #9C9C9C;
+  height: 25em;
+  margin-top: -2em;
+}
+
+.form-control {
+  width: 100%;
+  height: 150px;
+  padding: 12px 20px;
+  box-sizing: border-box;
+  border: 2px solid #ccc;
+  border-radius: 4px;
+  background-color: #f8f8f8;
+  resize: none;
+  display: block;
+}
+
+.myButton {
+	-moz-box-shadow: 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow: 0px 1px 0px 0px #ffffff;
+	box-shadow: 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #19b4cf), color-stop(1, #20ced4));
+	background:-moz-linear-gradient(top, #19b4cf 5%, #20ced4 100%);
+	background:-webkit-linear-gradient(top, #19b4cf 5%, #20ced4 100%);
+	background:-o-linear-gradient(top, #19b4cf 5%, #20ced4 100%);
+	background:-ms-linear-gradient(top, #19b4cf 5%, #20ced4 100%);
+	background:linear-gradient(to bottom, #19b4cf 5%, #20ced4 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#19b4cf', endColorstr='#20ced4',GradientType=0);
+	background-color:#19b4cf;
+	-moz-border-radius:10px;
+	-webkit-border-radius:10px;
+	border-radius:10px;
+	border:1px solid #677273;
+	display:inline-block;
+	cursor:pointer;
+	color: white;
+	/*font-family:Arial;*/
+	font-size:16px;
+	font-weight:bold;
+	padding:9px 29px;
+	text-decoration:none;
+	text-shadow:0px -1px 0px #283966;
+  outline: none;
+}
+.myButton:hover {
+	background:-webkit-gradient(linear, left top, left bottom, color-stop(0.05, #20ced4), color-stop(1, #19b4cf));
+	background:-moz-linear-gradient(top, #20ced4 5%, #19b4cf 100%);
+	background:-webkit-linear-gradient(top, #20ced4 5%, #19b4cf 100%);
+	background:-o-linear-gradient(top, #20ced4 5%, #19b4cf 100%);
+	background:-ms-linear-gradient(top, #20ced4 5%, #19b4cf 100%);
+	background:linear-gradient(to bottom, #20ced4 5%, #19b4cf 100%);
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#20ced4', endColorstr='#19b4cf',GradientType=0);
+	background-color:#20ced4;
+}
+.myButton:active {
+	position:relative;
+	top:1px;
+}
+
+#PostButton {
+  font-size: 12px;
+  padding: 6.75px 20px;
+}
+
+
+#facebook{
+  padding-left: 1em;
+}
+
+#tweet{
+  color: #4099FF;
+  padding-left: 2em;
+}
+
+#tweet:hover{
+  color: #0099CC;
+}
+
+#linked{
+  color: #0077B5;
+  padding-left: 2em;
+}
+
+#linked:hover{
+  color: #0099CC;
+}
+
+.texter{
+  padding-top: 1em;
+  line-height: 1.5em;
+  font-size: 1.5em;
+}
+
+
+{% endblock %}
+</style>
+
+
+{% block content %}
+<body>
+
+  <div class="mainbody container-flu2d">
+    <div class="jumbotron">
+      <div class="container">
+
+      </div>
+    </div>
+    <div class="row1">
+      <div style="padding-top:12m;"> </div>
+        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+          <div class="panel panel-default">
+            <div class="panel-body">
+              <div class="media">
+                <div align="center">
+                  <img class="thumbnail img-responsive" src="{{ user.userprofile.image.url }}" width="300px" height="300px">
+                </div>
+                <div class="media-body">
+                  <hr>
+                  <h3><strong>Bio</strong></h3>
+                  <p>{{ user.userprofile.bio }}</p>
+                  <hr>
+                  <h3><strong>Location</strong></h3>
+                  <p></p>
+                  <hr>
+                  <h3><strong>Gender</strong></h3>
+                  <p></p>
+                  <hr>
+                  <h3><strong>Birthday</strong></h3>
+                  <p></p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <span>
+              <h1 class="panel-title pull-left" style="font-size:30px;">{{ user.first_name }} {{ user.last_name }}<small> <!--{{ user.email }}--></small></h1>
+              <div class="dropdown pull-right">
+                <!-- <button class="myButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                  Post
+                </button> -->
+                <button class="myButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+                  Post
+                </button>
+              </div>
+            </span>
+            <br><br><br />
+            <a href="#" id="facebook" style="text-decoration:none;"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+            <a href="#" id="tweet" style="text-decoration:none;"><i class="fa fa-twitter fa-3x"></i></a>
+            <a href="#" id="linked" style="text-decoration:none;"><i class="fa fa-linkedin fa-3x"></i></a>
+            <br><hr>
+            <span class="pull-left">
+              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
+              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos </a>
+              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts </a>
+            </span>
+            <span class="pull-right">
+              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
+              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
+            </span>
+          </div>
+        </div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel">Share your work</h4>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          {% csrf_token %}
+          {{ form.post }}
+          <br>
+          <!-- <button type="submit" class="myButton">Submit</button>
+        </form> -->
+      </div>
+      <div class="modal-footer">
+        <button type="submit" class="myButton" id="PostButton">Submit</button>
+      </form>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+      </div>
+    </div>
+  </div>
+</div>
+        {% for post in posts %}
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <div class="pull-left">
+                        <a href="#">
+                            <img class="media-object img-circle" src="{{ user.userprofile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                        </a>
+                    </div>
+                    <h4><a href="#" style="text-decoration:none;"><strong>{{ post.user.get_full_name }}</strong></a> – <small><small><a href="#" style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.created }}</i></a></small></small></h4>
+                    <h1 class="texter">{{ post.post }}</h1>
+                    <span>
+                        <div class="navbar-right">
+                            <div class="dropdown">
+                                <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                                    <i class="fa fa-cog" aria-hidden="true"></i>
+                                    <span class="caret"></span>
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="dd1" style="float: right;">
+                                    <li><a href="#"><i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i> Report</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-ban" aria-hidden="true"></i> Ignore</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-bell" aria-hidden="true"></i> Enable notifications for this post</a></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i> Hide</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="#"><i class="fa fa-fw fa-trash" aria-hidden="true"></i> Delete</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </span>
+                    <hr>
+                    <div class="post-content">
+                        <p class="texter">{{ text }}</p>
+                    </div>
+
+                    <div>
+                        <div class="pull-right btn-group-xs">
+                            <a class="btn btn-default btn-xs"><i class="fa fa-heart" aria-hidden="true"></i> Like</a>
+                            <a class="btn btn-default btn-xs"><i class="fa fa-retweet" aria-hidden="true"></i> Reshare</a>
+                            <a class="btn btn-default btn-xs"><i class="fa fa-comment" aria-hidden="true"></i> Comment</a>
+                        </div>
+                        <div class="pull-left">
+                            <p class="text-muted" style="margin-left:5px;"><i class="fa fa-globe" aria-hidden="true"></i> Public</p>
+                        </div>
+                        <br>
+                    </div>
+                    <hr />
+                    <!-- <div class="media">
+                        <div class="pull-left">
+                            <a href="#">
+                                <img class="media-object img-circle" src="{{ user.userprofile.image.url }}" width="35px" height="35px" style="margin-left:3px; margin-right:-5px;">
+                            </a>
+                        </div>
+                        <div class="media-body">
+                            <textarea class="form-control" rows="1" placeholder="Comment"></textarea>
+                        </div>
+                    </div> -->
+                </div>
+            </div>
+        {% endfor %}
+
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function overlay() {
+      el = document.getElementById("overlay");
+      el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
+    }
+  </script>
+
+
+</body>
+{% endblock %}

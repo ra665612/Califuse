@@ -1,0 +1,347 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% load staticfiles %}
+
+{% block head_title %}Share | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+/*body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: url({% static 'img/SplitShire.jpg' %}) no-repeat;
+  background-color: cover;
+}*/
+
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+.navbar {
+  display: none;
+}
+
+.footer {
+  display: none;
+}
+
+.row:hover{
+  background-color: none;
+}
+
+.thankyou{
+  /*background: url({% static 'img/califuse2.jpg' %}) no-repeat;*/
+  height: 5em;
+  background-color: white;
+  text-align: center;
+}
+
+.thankyou img{
+  height: 5em;
+}
+
+.letin{
+  background: url({% static 'img/ryan-riggins.jpg' %}) no-repeat;
+  /*Photo by Camille Kimberly on Unsplash*/
+  background-size: cover;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  height: 40em;
+  color: white;
+}
+
+.letin h3{
+  padding-top: 2em;
+  font-size: 3em;
+}
+
+.letin p{
+  padding-top: 2em;
+  font-size: 2em;
+}
+
+.thanks{
+  color:black;
+  background-color: #E0E0E0;
+  height: 20em;
+}
+
+.thanks h3{
+  font-size: 2.5em;
+  padding-top: 1em;
+}
+
+.thanks p{
+  font-size: 1.5em;
+  padding-top: 1em;
+}
+
+.share{
+  background: #E0E0E0;
+  height: 40em;
+  color: black;
+}
+
+.share h3{
+  font-size: 2em;
+  padding-top: 3em;
+}
+
+.share p{
+  font-size: 1.25em;
+}
+
+.howitworks{
+  height: 57em;
+  /*background-color: #4A4A4A;*/
+  background-color: #F2F2F2;
+  /*color: #212121;*/
+  color: grey;
+}
+
+.col-sm-2:hover{
+  color: black;
+}
+
+.howitworks h1{
+  font-size: 3em;
+  padding-top: 1.5em;
+  color: #212121
+}
+
+.howitworks h2{
+  font-size: 1.5em;
+  padding-top: 1em;
+  line-height: 2em;
+  color: #212121
+
+}
+
+.howitworks p{
+  font-size: 1em;
+  padding-top: 1.5em;
+  text-align: left;
+  line-height: 2.5em;
+}
+
+.howitworks i{
+  padding-top: 1em;
+  padding-bottom: .5em;
+}
+
+.howitworks img{
+  height: 5em;
+  /*padding-top: 3em;*/
+}
+
+.friends{
+  height: 15em;
+  color: white;
+  background-color: #212121;
+}
+
+.friends h2{
+  line-height: 2em;
+  padding-top: 1.5em;
+}
+
+.different{
+  color: #00FFFF;
+  font-weight: bold;
+}
+
+#count5{
+  color: black;
+}
+
+#count10{
+  color: black;
+}
+
+#count25{
+  color: black;
+}
+
+{% endblock %}
+</style>
+
+{% block jquery %}
+
+$signUpCount = {{ count }};
+
+//$(".progress-bar").css("width", "80%").attr("aria-valuenow", "80").text("80%");
+
+function completeBlock(progressBarId){
+	$(progressBarId).css("width", "100%").attr("aria-valuenow", "100").text("Completed");
+};
+
+
+function setNewPerc(progressBarId, percentNum, newText){
+	$(progressBarId).css("width", percentNum + "%").attr("aria-valuenow", percentNum);
+
+	if (percentNum < 50) {
+		//$(progressBarId).text("Your Custom text");
+		$(progressBarId).text(newText);
+	} else {
+		$(progressBarId).text(newText);
+	}
+
+};
+
+if ($signUpCount == 0){
+
+} else if ($signUpCount > 0 && $signUpCount < 5) {
+	$newPercent = $signUpCount/5 * 100;
+	setNewPerc("#count5", $newPercent, "Number of Friends: " + $signUpCount);
+} else if ($signUpCount>=5 && $signUpCount < 10) {
+	completeBlock("#count5");
+	$newCount = $signUpCount - 5;
+	$newPercent = $newCount/(10-5) * 100;
+	setNewPerc("#count10", $newPercent, "Number of Friends: " + $signUpCount);
+
+} else if ($signUpCount >= 10 && $signUpCount < 25 ) {
+	completeBlock("#count5");
+  completeBlock("#count10")
+
+	$newCount = $signUpCount - 10;
+	$newPercent = $newCount/(25-10) * 100;
+	setNewPerc("#count25", $newPercent, "Number of Friends: " + $signUpCount);
+
+
+} else {
+	completeBlock("#count5");
+	completeBlock("#count15");
+	completeBlock("#count25");
+}
+
+
+
+{% endblock %}
+
+
+
+{% block content %}
+
+  <!-- <div class="thankyou">
+    <div class="container">
+      <img src="{% static 'img/califuse1.PNG' %}" />
+    </div>
+  </div> -->
+  <div class="letin">
+    <div class="container">
+      <h3>Thank you for joining the Califuse pre-launch waiting list!</h3>
+      <p>
+        We'll be sure to send you and invite as soon as possible<br /> so that you may join our network and share
+        the progress of your work
+        with everyone.
+      </p>
+    </div>
+  </div>
+  <div class="share">
+    <div class="container">
+      <h3>Want to cut the line and gain instant access?</h3><br />
+      <p>
+        Invite 5 friends and get an instant invitation upon launch!<br /><br />
+        Share the code below or click on a social media tab to share with friends
+      </p>
+      <!-- {{ ref_id }}<br />
+      {{ count }}<br />
+      {{ ref_url }} -->
+      <!-- <div class="well">{{ ref_id }}</div> -->
+      <div class="row">
+        <div class="col-xs-3"></div>
+        <div class="col-xs-6"><div class="well">{{ ref_url }}</div></div>
+        <div class="col-xs-3"></div>
+      </div>
+      <br />
+      <br />
+      <div class="social_sharing">
+        <a href="https://www.facebook.com/sharer/sharer.php?u={{ ref_url }}" target="_blank">
+          <i class="fa fa-facebook-square fa-5x" style="color:#3b5998"></i>
+        </a>
+        <a href="https://twitter.com/home?status=Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20%23Califuse {{ ref_url }}" target="_blank">
+          <i class="fa fa-twitter-square fa-5x" style="color:#4099FF"></i>
+        </a>
+        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ ref_url }}&title=Califuse.com&summary=Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20Califuse&source={{ ref_url }}" target="_blank">
+          <i class="fa fa-linkedin-square fa-5x" style="color:#007bb6"></i>
+        </a>
+        <a href="http://www.reddit.com/submit?url={{ ref_url }}&title==Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20Califuse" target="_blank">
+          <i class="fa fa-reddit-square fa-5x" style="color:#900020"></i>
+        </a>
+        <a href='https://plus.google.com/share?url={{ ref_url }}' target="_blank">
+          <i class="fa fa-google-plus-square fa-5x" style="color:#D34836"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+  <div class="howitworks">
+    <div class="container">
+      <h1>How it works</h1>
+      <h2>
+        Send invites, Friends join, you earn rewards.<br />
+        Yes It's that simple!<br />
+      </h2>
+      <div class="row">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-2">
+          <i class="fa fa-play fa-5x"></i>
+          <h3>5 Joined</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" id="count5" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              0%
+            </div>
+          </div>
+          <!-- <img src="{% static 'img/califuse1.PNG' %}" /> -->
+          <p>
+            + Instant access at launch
+          </p>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+          <i class="fa fa-forward fa-5x" aria-hidden="true"></i>
+          <h3>10 Joined</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" id="count10" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              0%
+            </div>
+          </div>
+          <!-- <img src="{% static 'img/califuse2.PNG' %}" /> -->
+          <p>
+            + Instant access on launch<br />
+            + 6 Months 'Featured' free - lets more people discover your work
+          </p>
+        </div>
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2">
+          <i class="fa fa-fast-forward fa-5x" aria-hidden="true"></i>
+          <h3>25 Joined</h3>
+          <div class="progress">
+            <div class="progress-bar" role="progressbar" id="count25" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+              0%
+            </div>
+          </div>
+          <!-- <img src="{% static 'img/califuse1.PNG' %}" /> -->
+          <p>
+            + Instant access on launch<br />
+            + 12 Months 'Featured' free - lets more people discover your work<br />
+            + Early alerts for new features added to the network
+          </p>
+        </div>
+        <div class="col-sm-2"></div>
+      </div>
+    </div>
+  </div>
+  <div class="friends">
+    <div class="container">
+      <h2>Congratulations you've had <span class="different">{{ count }}</span> friends join!<br />
+      Keep sharing to gain better rewards.</h2>
+    </div>
+  </div>
+
+{% endblock %}

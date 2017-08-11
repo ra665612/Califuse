@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+<style>
+{% block style %}
+.act_fail{
+  height: 30em;
+  text-align: center;
+}
+
+.failpic{
+  background: url("{% static './img/Dublin_Ireland.jpg' %}") no-repeat;
+  background-size: cover;
+  width: 150em;
+  height: 40em;
+  margin-left: -20em;
+  margin-top: -2em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<div class="act_fail">
+  <p>{% trans "Account activation failed" %}</p>
+</div>
+
+<div class="failpic">
+
+</div>
+{% endblock %}

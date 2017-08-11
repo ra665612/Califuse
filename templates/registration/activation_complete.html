@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load i18n %}
+
+<style>
+{% block style %}
+.act_complete{
+  height: 30em;
+  text-align: center;
+}
+
+.welcome{
+  font-size: 3em;
+  padding-top: 3em;
+}
+
+.welcomepic{
+  background: url("{% static './img/Dublin_Ireland.jpg' %}") no-repeat;
+  background-size: cover;
+  width: 150em;
+  height: 40em;
+  margin-left: -20em;
+  margin-top: -2em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<div class="act_complete">
+  <h1 class="welcome"> Welcome to Califuse!</h1>
+  <p class='lead'>{% trans "Your account is now activated." %}</p>
+</div>
+
+<div class="welcomepic">
+
+</div>
+
+{% endblock %}

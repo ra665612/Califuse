@@ -1,0 +1,191 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+{% block head_title %}About Us | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;;
+}
+
+
+body{
+  background-color: white;
+}
+/*
+.page-header{
+  text-align: center;
+  height: 20em;
+  color: #grey;
+  background-color: white;
+  margin-top: -2em;
+}*/
+
+#page-header-text{
+  /*font-weight: bold;
+  font-size: 5em;
+  letter-spacing: 0.75em;
+  padding-top: 1em;
+  padding-left: 1.15em;
+  text-align: center;
+  color: white;*/
+  font-size: 5em;
+  padding-top: 1em;
+  color: white;
+  letter-spacing: 0.5em;
+  font-weight: bold;
+  text-align: center;
+}
+
+.aboutus-pic{
+  background: url("{% static 'img/manhattan.jpg' %}") no-repeat;
+  background-size: cover;
+  height: 36em;
+  position: static;
+  margin-top: -3em;
+}
+
+.TheTeam {
+  height: 55em;
+  background-color: #F0F0F0;
+  color: blacks;
+  text-align: center;
+}
+
+
+.TheTeam img{
+  padding-top: 5em;
+  float: right;
+}
+
+
+.TheTeam h3{
+  padding-top: 1.75em;
+  text-align: left;
+}
+
+.TheTeam p{
+  padding-top: 2em;
+  text-align: left;
+  line-height: 2em;
+}
+
+#teamheader{
+  padding-top: 1em;
+  font-size: 3em;
+}
+
+.OurStory {
+  color: black;
+  background-color: #F0F0F0;
+  text-align: ;
+  height: 60em;
+  line-height: 2.5em;
+}
+
+.OurStory h1 {
+  font-size: 3em;
+  text-align: center;
+  font-weight: bold;
+  padding-top: 1em;
+}
+
+.OurStory p {
+  font-size: 2em;
+  text-align: center;
+  padding-top: 1em;
+  line-height: 2em;
+  padding-left: 2em;
+  padding-right: 2em;
+}
+
+.OurStory i{
+  letter-spacing: 1em;
+  text-align: center;
+  margin-left: .4em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<body>
+
+  <div class="aboutus-pic">
+    <div class="container">
+      <div class="abuspic">
+        <h1 id="page-header-text">ABOUT US</h1>
+      </div>
+    </div>
+  </div>
+
+  <div class="TheTeam">
+    <div class="container">
+      <h1 id="teamheader">The Team</h1>
+      <div class="row">
+        <div class="col-md-6">
+          <img src="{% static 'img/profile_pic.png' %}" width="300" height="400" />
+        </div>
+        <div class="col-md-6">
+          <h3>Ryan Anderson<br /><span style="font-size:0.5em; color: #666666;">Founder and CEO</h3></span>
+          <p>
+            Engineer and Entrepreneur<br /> Study at Ohio University.<br />I am a huge dog and music lover.<br />Massive tech Nerd
+          </p>
+          <p>
+            <i class="fa fa-map-marker fa-2x" aria-hidden="true"></i> Cincinnati, OH<br />
+            <a href="https://twitter.com/RMAnderson23"><i class="fa fa-twitter fa-2x"></i>@RMAnderson23</a>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="OurStory">
+    <div class="container">
+      <h1>Share your work!</h1>
+      <p>
+        Califuse lets students expand and share project that they have either worked on in the classroom or independently. The process of students connecting with
+        companies in the industries they want to be in in fundamentally flaud. Here we believe that students are more than a simple resume with a GPA. Califuse allows
+        students the ability to share projects with peers and companies that you accomplished for your major or independently. Califuse is also design to allow students to connect
+        with companies in the industry that they want to be in by liking and following work that companies also publish.<br /><br /><br />
+        <i class="fa fa-laptop fa-5x" aria-hidden="true"></i> <i class="fa fa-desktop fa-5x" aria-hidden="true"></i> <i class="fa fa-mobile fa-5x" aria-hidden="true"></i>
+      </p>
+    </div>
+  </div>
+
+
+  <!-- <div class="row">
+    <div class="col-md-8 col-sm-4">
+      <div class="about">
+        <div class="container">
+          <p class="about1">Welcome to Califuse! My name is Ryan and I'm the founder of Califuse,
+            a platform for students to show projects that they have worked on. Califuse is a
+            company devoted to helping studends connect with companies that they would love to work for. I started this
+            website after I had tremendous trouble getting an internship. <br/>
+            <br/>
+            After spending months sending in hundreds of applications and countless emails, I noticed that there
+            was a need for a site that allowed students to show off what they have worked on during their time at their university.
+            I believe that every student should be looked at by employers as much more thana piece of paper
+            with a number on it. With Califuse I hope to help every student get into the industry
+            that they want by showing who they are and what they've done.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 col-sm-4">
+      <div class="ryan">
+        <div class="container">
+
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+
+
+
+</body>
+{% endblock %}

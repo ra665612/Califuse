@@ -1,0 +1,64 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="../../favicon.ico">
+
+    <title>{% block head_title %}Califuse{% endblock %}</title>
+
+
+  {% include 'head_css.html' %}
+
+      <style>
+      {% block style %}
+      html, body{
+        margin:0;
+        padding: 0;
+      }
+
+
+      {% endblock %}
+      </style>
+<!-- <script src="custom.js"></script> -->
+
+  </head>
+
+  <body>
+    {% include 'navbar.html' %}
+
+
+
+    <div class="container">
+
+    {% block jumbotron %}
+
+    {% endblock %}
+
+    {% block content%}
+
+    {% endblock %}
+
+
+  </div>
+
+    {% include 'footer.html' %}
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="{% static 'js/bootstrap.min.js' %}"></script>
+    <script>
+    $(document).ready(function(){
+        {% block jquery %}
+        {% endblock %}
+    });
+    </script>
+
+
+  </body>
+</html>
