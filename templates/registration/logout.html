@@ -6,18 +6,23 @@
 
 <style>
 {% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;;
+}
+
 .logpic{
-  background: url("{% static './img/flat-map.jpg' %}") no-repeat;
+  background: url("{% static './img/thom.jpg' %}") no-repeat;
   background-size: cover;
-  width: 150em;
   height: 60em;
-  margin-left: -20em;
 }
 
 .logout{
   height: 5em;
   font-size: 3em;
   padding-top: 1.5em;
+  text-align: center;
 }
 
 .logs{
@@ -35,11 +40,16 @@
 
 {% block content %}
 <div class="logout">
-  <p class='text-align-center lead'>You have successfully logged out.<br>Come again soon!</p><p class='text-align-center lead'><a href="{% url 'auth_login' %}" class="logs">Login</a></p>
+  <div class="container">
+    <p class='text-align-center lead'>You have successfully logged out.<br>Come again soon!</p><p class='text-align-center lead'><a href="{% url 'auth_login' %}" class="logs">Login</a></p>
+  </div>
 </div>
 
-<div class="logpic">
 
+<div class="logpic">
+  <div class="container">
+
+  </div>
 </div>
 
 

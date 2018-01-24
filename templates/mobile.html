@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+<style>
+{% block style %}
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.mobile{
+  text-align: center;
+  background-color: lightgrey;
+  font-size: 1.5em;
+  color: white;
+}
+
+.mobile h1{
+  padding-top: 1.5em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<body>
+  <div class="mobile">
+    <div class="container">
+      <h1>Thank you for visiting Califuse</h1>
+      <p>
+         The mobile version of our site is currently undergoing further optimization. To access Califuse, please visit the site
+         on any computer or tablet to gain the full experience
+      </p>
+    </div>
+  </div>
+</body>
+{% endblock %}

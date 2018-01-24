@@ -1,6 +1,8 @@
-from django.shortcuts import render, redirect
-from mainproj.forms import EditProfileForm
-from django.core.urlresolvers import reverse
+from django.shortcuts import render, redirect, render_to_response, RequestContext
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+from django.http import HttpResponseRedirect, HttpResponse
+from mainproj.forms import EditProfileForm, EditUserProfile
+from django.core.urlresolvers import reverse, reverse_lazy
 # from django.template.context import RequestContext
 # from django.core.mail import EmailMessage
 # from django.template import Context
@@ -8,6 +10,8 @@ from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserChangeForm, PasswordChangeForm
 from registration.signals import user_registered
 from django.views.generic import TemplateView
+from django.views.generic.edit import DeleteView
+from cali.models import UserProfile
 
 
 from mainproj.forms import PostForm
@@ -28,76 +32,91 @@ def faq(request):
 def Privacy_Policy(request):
     return render(request, "Privacy_Policy.html", {})
 
-# def view_profile(request, pk=None):
-#     if pk:
-#         user = User.objects.get(pk=pk)
-#     else:
-#         user = request.user
-#     args = {'user': user}
-#     return render(request, 'profile.html', args)
+
+# class ProfileView(TemplateView):
+#     template_name = 'profile.html'
+#
+#     def get(self, request):
+#         form = PostForm()
+#         posts = Post.objects.all().order_by('-created')
+#         users = User.objects.exclude(id=request.user.id)
+#
+#         args = {
+#             'form': form, 'posts': posts, 'users': users
+#         }
+#         return render(request, self.template_name, args)
+#         # return render(request, self.template_name,{'form': form})
+#
+#
+#     def post(self, request):
+#         form = PostForm(request.POST, request.FILES or None)
+#         if form.is_valid():
+#             post = form.save(commit=False)
+#             post.user = request.user
+#             post.save()
+#
+#             text = form.cleaned_data['post']
+#             form = PostForm()
+#             return redirect('/profile')
+#
+#         args = {'form': form, 'text': text}
+#         return render(request, self.template_name, args)
+
+# def createUserProfile(request, instance, **kwargs):
+#     user_profile = UserProfile.objects.create(user=instance)
+def createUserProfile(sender, **kwargs):
+    if kwargs['created']:
+        user_profile = UserProfile.objects.create(user=kwargs['instance'])
+    pass
 
 
-class ProfileView(TemplateView):
-    template_name = 'profile.html'
+# user_registered.connect(createUserProfile)
+user_registered.connect(createUserProfile, sender=User)
 
-    # def view_profile(request, pk=None):
-    #     if pk:
-    #         user = User.objects.get(pk=pk)
-    #     else:
-    #         user = request.user
-    #         args = {'user': user}
-    #     return render(self.template_name, args)
 
-    def get(self, request):
-        form = PostForm()
-        posts = Post.objects.all().order_by('-created')
-        users = User.objects.exclude(id=request.user.id)
+def view_profile(request, pk=None):
+    if pk:
+        user = User.objects.get(pk=pk)
+    else:
+        user = request.user
 
-        args = {
-            'form': form, 'posts': posts, 'users': users
-        }
-        return render(request, self.template_name, args)
-        # return render(request, self.template_name,{'form': form})
-
-    def post(self, request):
-        form = PostForm(request.POST)
+    if request.method == 'POST':
+        form = PostForm(request.POST, request.FILES or None)
         if form.is_valid():
+            # form.save()
             post = form.save(commit=False)
             post.user = request.user
             post.save()
 
             text = form.cleaned_data['post']
             form = PostForm()
-            return redirect('/profile')
+    else:
+        form = PostForm(instance=request.user)
 
-        args = {'form': form, 'text': text}
-        return render(request, self.template_name, args)
+    posts = Post.objects.all().order_by('-created')
+    users = User.objects.exclude(id=request.user.id)
+
+    # paginate posts
+    paginator = Paginator(posts, 35) # Show 25 contacts per page
+
+    page = request.GET.get('page')
+    try:
+        posts = paginator.page(page)
+    except PageNotAnInteger:
+        # If page is not an integer, deliver first page.
+        posts = paginator.page(1)
+    except EmptyPage:
+        # If page is out of range (e.g. 9999), deliver last page of results.
+        posts = paginator.page(paginator.num_pages)
 
 
-    # def remove_items(request):
-    # if request.method == 'POST':
-    #     form = PostForm()
-    #     profileview = ProfileView.objects.all()
-    #     item_id = int(request.POST.get('item_id'))
-    #     item = Inventory.objects.get(id=item_id)
-    #     item.delete()
-    #     return render_to_response('inventory.html', {
-    #         'form':form, 'inventory':inventory,
-    #         }, RequestContext(request))
 
+    args = {'user': user, 'form': form, 'posts': posts, 'users': users}
+    return render(request, 'profile.html', args)
 
-def createUserProfile(sender, instance,**kwargs):
-    user_profile = UserProfile.objects.create(user=instance)
-
-user_registered.connect(createUserProfile)
-
-# def view_profile(request, pk=None):
-#     if pk:
-#         user = User.objects.get(pk=pk)
-#     else:
-#         user = request.user
-#     args = {'user': user}
-#     return render(request, 'profile.html', args)
+class PostDelete(DeleteView):
+    model = Post
+    success_url = reverse_lazy('view_profile')
 
 def edit_profile(request):
     if request.method == 'POST':
@@ -105,11 +124,36 @@ def edit_profile(request):
 
         if form.is_valid():
             form.save()
-            return redirect(reverse('profile'))
+            # return redirect(reverse('profile'))
+            return redirect('/profile')
     else:
         form = EditProfileForm(instance=request.user)
         args = {'form': form}
         return render(request, 'edit_profile.html', args)
+
+
+def edit_user(request):
+    try:
+        profile = request.user.userprofile
+    except UserProfile.DoesNotExist:
+        profile = UserProfile(user=request.user)
+
+    if request.method == 'POST':
+        form = EditUserProfile(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            city = form.cleaned_data['city']
+            bio = form.cleaned_data['bio']
+            twitter = form.cleaned_data['twitter']
+            facebook = form.cleaned_data['facebook']
+            linkedin = form.cleaned_data['linkedin']
+
+            form.save()
+            # return redirect(reverse('home'))
+            return redirect('/profile')
+
+    else:
+        form = EditUserProfile(instance=profile)
+    return render(request, 'edit_user.html', {'form': form})
 
 def change_password(request):
     if request.method == 'POST':

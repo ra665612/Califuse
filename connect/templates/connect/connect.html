@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
 
 <style>
 {% block style %}
@@ -8,35 +10,165 @@
   padding: 0;
 }
 
+.connection{
+  height: 25em;
+  color: white;
+  /*background-color: #737373;*/
+  text-align: center;
+  margin-top: -2em;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#033737+0,97ffff+100 */
+  background: #033737; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #033737 0%, #97ffff 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #033737 0%,#97ffff 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #033737 0%,#97ffff 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#033737', endColorstr='#97ffff',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
 
+.connection h1{
+  padding-top: 2em;
+}
+
+.connection h2{
+  padding-bottom: 1em;
+}
+
+.friends{
+  min-height: 100em;
+  padding-bottom: 30em;
+}
+
+.friends h1{
+  text-align: center;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+
+.friends h3{
+  /*padding-bottom: 2em;*/
+  text-decoration: none;
+  line-height: 2em;
+  color: grey;
+}
+
+.info{
+  padding-left: 1em;
+  font-size: 15em;
+}
+
+.connector h3{
+  text-decoration: none;
+  color: black;
+}
+
+.connector a:hover{
+  text-decoration: none;
+}
+
+.pages{
+  text-align: center;
+  margin-top: 2em;
+  font-size: 1.5em;
+}
 
 {% endblock %}
 </style>
 
 {% block content %}
-<div class="container">
-  <div class="col-md-12">
-    <!-- <h2>Connect</h2>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.post }}
-      <br>
-      <button type="submit">Submit</button>
+
+<div class="connection">
+  <div class="container">
+    <h1>See what others are working on!</h1>
+    <h2>Add friends to keep up to date with their work</h2>
+    <div class="col-sm-6 col-sm-offset-3">
+      <form method="GET" action="" class="form-horizontal">
+        <div class="input-group">
+          <input class="form-control" type="text" name='q' value="{{ request.GET.q }}" placeholder="Enter Username, First, or Last name" />
+            <span class="input-group-btn">
+              <input type="submit" value="Search Network" class="btn btn-default btn-block " />
+            </span>
+        </div>
       </form>
-      <h2>{{ text }}</h2>
-      {% for post in posts %}
-        <h1>{{ post.post }}</h1>
-        <p>Posted by {{ post.user.get_full_name }} on {{ post.created }}</p>
-      {% endfor %} -->
-      <h1>Friends</h1>
-      {% for user in users %}
-        <a href="{% url 'view_profile_with_pk' pk=user.pk %}">
-          <h3>{{ user.username }}</h3>
-        </a>
-      {% endfor %}
+    </div>
   </div>
-/
 </div>
 
+<div class="friends container-fluid">
+  <div class="container">
+    <div class="col-md-6">
+      <h1>Other users</h1><hr />
+      {% for user in users %}
+      <div class="container-fluid well span6">
+	      <div class="row-fluid">
+          <div class="span2 pull-left control-group connector" >
+            <a href="{% url 'view_profile_with_pk' pk=user.pk %}">
+              <img src="{{ user.userprofile.image.url }}" class="img-circle"width="100em" height="100em" /><br />
+              <h3>{{ user.username }}</h3>
+            </a>
+            {% if not user in friends %}
+              <a href="{% url 'change_friends' operation='add' pk=user.pk  %}"><button type="button" class="btn btn-success">Add Friend</button></a><hr />
+            {% endif %}
+          </div>
+          <div class="span8 ">
+            <div class="info">
+              <h3>{{ user.first_name }} {{ user.last_name }}</h3><hr />
+              <h5>{{ user.userprofile.city }}</h5><hr />
+              <h5>{{ user.userprofile.bio }}</h5>
+            </div>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+
+      <div class="pagination pages">
+          <span class="step-links">
+              {% if users.has_previous %}
+                  <a href="?page={{ users.previous_page_number }}"<button class="btn btn-default">previous</button></a>
+              {% endif %}
+              <span class="current">
+                  Users page {{ users.number }} of {{ users.paginator.num_pages }}.
+              </span>
+              {% if users.has_next %}
+                  <a href="?page={{ users.next_page_number }}"><button class="btn btn-default">next</button></a>
+              {% endif %}
+          </span>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <h1>Friends</h1><hr />
+      {% for friend in friends %}
+        <div class="container-fluid well span6">
+          <div class="row-fluid">
+            <div class="span2 pull-left control-group connector" >
+              <a href="{% url 'view_profile_with_pk' pk=user.pk %}">
+                <img src="{{ friend.userprofile.image.url }}" class="img-circle" width="100em" height="90em" />
+                <h3>{{ friend.username }}</h3>
+              </a>
+              <a href="{% url 'change_friends' operation='remove' pk=friend.pk  %}"><button type="button" class="btn btn-default">Remove Friend</button></a><hr />
+            </div>
+            <div class="span8 ">
+              <div class="info">
+                <h3>{{ friend.first_name }} {{ friend.last_name }}</h3><hr />
+              </div>
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+      <div class="pagination pages">
+          <span class="step-links">
+              {% if friends.has_previous %}
+                  <a href="?page={{ friends.previous_page_number }}"<button class="btn btn-default">previous</button></a>
+              {% endif %}
+              <span class="current">
+                  Friends page {{ friends.number }} of {{ friends.paginator.num_pages }}.
+              </span>
+              {% if friends.has_next %}
+                  <a href="?page={{ friends.next_page_number }}"><button class="btn btn-default">next</button></a>
+              {% endif %}
+          </span>
+      </div>    </div>
+  </div>
+</div>
 
 {% endblock %}

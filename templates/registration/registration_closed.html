@@ -4,6 +4,12 @@
 
 <style>
 {% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;;
+}
+
 .regclosed{
 	height: 10em;
 	padding-top: 3em;
@@ -12,11 +18,9 @@
 }
 
 .rgstrpic{
-  background: url("{% static './img/MilkyWayPan.jpg' %}") no-repeat;
+  background: url("{% static './img/thom.jpg' %}") no-repeat;
   background-size: cover;
-  width: 150em;
   height: 60em;
-  margin-left: -20em;
   margin-top: -2em;
 }
 
@@ -25,10 +29,14 @@
 
 {% block content %}
 <div class="regclosed">
-	<p>{% trans "Registration is currently closed. We do apologize!" %}</p>
+	<div class="container">
+		<p>{% trans "Registration is currently closed. We do apologize!" %}</p>
+	</div>
 </div>
 
 <div class='rgstrpic'>
+	<div class="container">
 
+	</div>
 </div>
 {% endblock %}

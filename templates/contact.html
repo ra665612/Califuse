@@ -13,7 +13,7 @@ body {
 }
 
 .contact{
-  background: url("{% static 'img/careers.jpg' %}") no-repeat center center;
+  background: url("{% static 'img/christine-donaldson.jpg' %}") no-repeat center center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -35,7 +35,7 @@ body {
   font-weight: bold;
   letter-spacing: 0.5em;*/
   font-size: 5em;
-  padding-top: 1em;
+  padding-top: 2em;
   color: white;
   letter-spacing: 0.5em;
   font-weight: bold;
@@ -51,16 +51,17 @@ body {
   linear-gradient(207deg, #222 5px, transparent 5px) 10px 5px,
   linear-gradient(90deg, #1b1b1b 10px, transparent 10px),
   linear-gradient(#1d1d1d 25%, #1a1a1a 25%, #1a1a1a 50%, transparent 50%, transparent 75%, #242424 75%, #242424);*/
-  background-color: #131313;
+  background-color: #383838;
   background-size: 20px 20px;
   text-align: center;
   height: 20em;
 }
 
 .social-icon{
-  color: grey;
+
   list-style-type: none;
   margin-left: -2em;
+  text-decoration: none;
 }
 
 .social-icon:hover{
@@ -82,8 +83,9 @@ body {
 }
 
 .bridge{
-  background: url("{% static 'img/New_York.jpg' %}") no-repeat;
+  background: url("{% static 'img/christine-donaldson.jpg' %}") no-repeat;
   background-size: cover;
+  height: 15em;
 }
 
 .getintouch{
@@ -132,7 +134,13 @@ body {
   padding: 0;
 }
 
+.clr{
+  color: lightgrey;
+}
 
+.clr:hover{
+  color: white;
+}
 {% endblock %}
 </style>
 
@@ -146,13 +154,13 @@ body {
 
   <div class="social">
     <div class="container">
-      <h1 class="lmk">Feel free to contact us on social media!<h1>
+      <h1 class="lmk">Follow us on social media!<h1>
       <br>
-      <a class="social-icon" href="https://www.facebook.com/Califusecom-1958625571024601/?ref=aymt_homepage_panel"><i class="fa fa-facebook fa-lg"></i></a>
-      <a class="social-icon" href="http://angellist.com/califuse"><i class="fa fa-angellist fa-lg"></i></a>
-      <a class="social-icon" href="https://twitter.com/CaliFuseJobs"><i class="fa fa-twitter fa-lg"></i></a>
-      <a class="social-icon" href="https://www.instagram.com/califuseco/?hl=en"><i class="fa fa-instagram fa-lg"></i></a>
-      <a class="social-icon" href="https://www.linkedin.com/company-beta/22312259/"><i class="fa fa-linkedin fa-lg"></i></a>
+      <a class="social-icon" href="https://www.facebook.com/califuse" target="_blank"><i class="fa fa-facebook fa-lg clr"></i></a>
+      <a class="social-icon" href="http://angellist.com/califuse"><i class="fa fa-angellist fa-lg clr"></i></a>
+      <a class="social-icon" href="https://twitter.com/Califuseco" target="_blank"><i class="fa fa-twitter fa-lg clr"></i></a>
+      <a class="social-icon" href="https://www.instagram.com/califuseco/?hl=en"><i class="fa fa-instagram fa-lg clr"></i></a>
+      <a class="social-icon" href="https://www.linkedin.com/califuse" target="_blank"><i class="fa fa-linkedin fa-lg clr"></i></a>
     </div>
   </div>
 

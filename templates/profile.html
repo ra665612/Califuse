@@ -1,4 +1,6 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{{user.username}} | {{ block.super }} {% endblock %}
 
@@ -16,15 +18,31 @@
 }
 
 .row1{
-  margin-top: -20em;
+  margin-top: -25em;
+}
+
+.row1 h3{
+  text-align: center;
+}
+
+#name{
+  text-align: center;
+}
+
+.row1 p{
+  font-size: 1.5em;
+  text-align: center;
 }
 
 .jumbotron {
   background: url("{{ user.userprofile.backimage.url }}") no-repeat;
+  background-size: cover;
   background-color: #9C9C9C;
-  height: 25em;
+  height: 30em;
   margin-top: -2em;
 }
+
+
 
 .form-control {
   width: 100%;
@@ -114,6 +132,40 @@
   font-size: 1.5em;
 }
 
+.panel{
+  background-color: #FAFAFA;
+}
+
+.poster h2{
+  padding-left: 2em;
+}
+
+.click_post{
+  padding-right: 3em;
+}
+
+.delete_btn{
+  margin-left: 1.5em;
+}
+
+.mainbody{
+  min-height: 100em;
+}
+
+.poster{
+  padding-left: 2em;
+  padding-right: 2em;
+  font-size: 1.5em;
+}
+
+.share{
+  text-align: center;
+  font-size: 1em;
+}
+
+.pag_posts{
+  padding-bottom: 1em;
+}
 
 {% endblock %}
 </style>
@@ -122,7 +174,8 @@
 {% block content %}
 <body>
 
-  <div class="mainbody container-flu2d">
+
+  <div class="mainbody container-fluid">
     <div class="jumbotron">
       <div class="container">
 
@@ -135,21 +188,21 @@
             <div class="panel-body">
               <div class="media">
                 <div align="center">
-                  <img class="thumbnail img-responsive" src="{{ user.userprofile.image.url }}" width="300px" height="300px">
+                  {% if user.userprofile.image %}
+                    <img class="thumbnail img-responsive" src="{{ user.userprofile.image.url }}" width="300" height="300">
+                  {% endif %}
                 </div>
                 <div class="media-body">
+                  <h2 id="name">{{ user.first_name }} {{ user.last_name }}</h2>
                   <hr>
                   <h3><strong>Bio</strong></h3>
                   <p>{{ user.userprofile.bio }}</p>
                   <hr>
-                  <h3><strong>Location</strong></h3>
-                  <p></p>
+                  <h3><strong>City</strong></h3>
+                  <p>{{ user.userprofile.city }}</p>
                   <hr>
-                  <h3><strong>Gender</strong></h3>
-                  <p></p>
-                  <hr>
-                  <h3><strong>Birthday</strong></h3>
-                  <p></p>
+                  <h3><strong>Email</strong></h3>
+                  <p>{{ user.email }}</p>
                 </div>
               </div>
             </div>
@@ -159,91 +212,115 @@
         <div class="panel panel-default">
           <div class="panel-body">
             <span>
-              <h1 class="panel-title pull-left" style="font-size:30px;">{{ user.first_name }} {{ user.last_name }}<small> <!--{{ user.email }}--></small></h1>
-              <div class="dropdown pull-right">
+              <h1 class="panel-title pull-left" style="font-size:30px;">{{ user }}</h1>
+              <div class="dropdown pull-right click_post">
                 <!-- <button class="myButton" type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                   Post
                 </button> -->
-                <button class="myButton" type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
-                  Post
-                </button>
+                {% if user = request.user %}
+                  <button type="button" class="btn btn-info btn-lg poster" data-toggle="modal" data-target="#myModal">
+                    Post
+                  </button>
+                {% endif %}
               </div>
             </span>
             <br><br><br />
-            <a href="#" id="facebook" style="text-decoration:none;"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
-            <a href="#" id="tweet" style="text-decoration:none;"><i class="fa fa-twitter fa-3x"></i></a>
-            <a href="#" id="linked" style="text-decoration:none;"><i class="fa fa-linkedin fa-3x"></i></a>
+            <a href="http://www.facebook.com/{{ user.userprofile.facebook }}" id="facebook" style="text-decoration:none;" target="_blank"><i class="fa fa-facebook-official fa-3x" aria-hidden="true"></i></a>
+            <a href="http://www.twitter.com/{{ user.userprofile.twitter }}" id="tweet" style="text-decoration:none;" target="_blank"><i class="fa fa-twitter fa-3x"></i></a>
+            <a href="http://www.linkedin.com/in/{{ user.userprofile.linkedin }}" id="linked" style="text-decoration:none;" target="_blank"><i class="fa fa-linkedin fa-3x"></i></a>
             <br><hr>
             <span class="pull-left">
-              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts</a>
-              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos </a>
-              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts </a>
+              <a href="" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-files-o" aria-hidden="true"></i> Posts
+              <a href="" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-picture-o" aria-hidden="true"></i> Photos </a>
+              <a href="" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-fw fa-users" aria-hidden="true"></i> Contacts </a>
             </span>
             <span class="pull-right">
-              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
-              <a href="#" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
+              <a href="" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-at" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Mention"></i></a>
+              <a href="" class="btn btn-link" style="text-decoration:none;"><i class="fa fa-lg fa-envelope-o" aria-hidden="true" data-toggle="tooltip" data-placement="bottom" title="Message"></i></a>
             </span>
           </div>
         </div>
 
-<!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<!-- Post Modal -->
+<div class="modal fade poster" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-        <h4 class="modal-title" id="myModalLabel">Share your work</h4>
+        <h1 class="modal-title share" id="myModalLabel">Share what you've been working on<br />Talk about where you are at with your projects</h1>
       </div>
       <div class="modal-body">
-        <form method="post">
+        <form method="post" enctype="multipart/form-data">
           {% csrf_token %}
-          {{ form.post }}
+          {{ form|crispy }}
           <br>
           <!-- <button type="submit" class="myButton">Submit</button>
         </form> -->
       </div>
-      <div class="modal-footer">
-        <button type="submit" class="myButton" id="PostButton">Submit</button>
+        <!-- <h2 class="sharer">Attach an image</h2>
+        <input id="post_image" type="file" class="" name="image" /> -->
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-default" id="PostButton" value="Post">Post</button>
       </form>
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
-      </div>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+          <!-- <button type="button" class="btn btn-primary">Save changes</button> -->
+        </div>
     </div>
   </div>
 </div>
         {% for post in posts %}
+          {% if user = post.user %}
             <div class="panel panel-default">
                 <div class="panel-body">
                     <div class="pull-left">
-                        <a href="#">
-                            <img class="media-object img-circle" src="{{ user.userprofile.image.url }}" width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
-                        </a>
+                        <!-- <a href=""> -->
+                        <img class="media-object img-circle" src="{{ post.user.userprofile.image.url }}"  width="50px" height="50px" style="margin-right:8px; margin-top:-5px;">
+                        <!-- </a> -->
                     </div>
-                    <h4><a href="#" style="text-decoration:none;"><strong>{{ post.user.get_full_name }}</strong></a> – <small><small><a href="#" style="text-decoration:none; color:grey;"><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.created }}</i></a></small></small></h4>
+                    <h4><!--<a href="" style="text-decoration:none;">--><strong>{{ post.user.get_full_name }}</strong><!--</a>--> – <small><small><!--<a href="#" style="text-decoration:none; color:grey;">--><i><i class="fa fa-clock-o" aria-hidden="true"></i>{{ post.created }}</i><!--</a>--></small></small></h4>
                     <h1 class="texter">{{ post.post }}</h1>
+                    <br />
+                    <hr />
+                    {% if post.image %}
+                      <img   class="img-responsive" src="{{ post.image.url }}" alt="{{ post.user.get_full_name }}"  style="margin-right:8px; margin-top:-5px; max-height:50em;">
+                    {% endif %}
                     <span>
-                        <div class="navbar-right">
-                            <div class="dropdown">
-                                <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
+                        <div class="pull-right">
+                            <!-- <div class="dropdown"> -->
+                                <!-- <button class="btn btn-link btn-xs dropdown-toggle" type="button" id="dd1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
                                     <i class="fa fa-cog" aria-hidden="true"></i>
                                     <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu" aria-labelledby="dd1" style="float: right;">
-                                    <li><a href="#"><i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i> Report</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-ban" aria-hidden="true"></i> Ignore</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-bell" aria-hidden="true"></i> Enable notifications for this post</a></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i> Hide</a></li>
+                                </button> -->
+                                <!-- <ul class="dropdown-menu" aria-labelledby="dd1" style="float: right;">
+                                    <li><a href=""><i class="fa fa-fw fa-exclamation-triangle" aria-hidden="true"></i> Report</a></li>
+                                    <li><a href=""><i class="fa fa-fw fa-ban" aria-hidden="true"></i> Ignore</a></li>
+                                    <li><a href=""><i class="fa fa-fw fa-bell" aria-hidden="true"></i> Enable notifications for this post</a></li>
+                                    <li><a href=""><i class="fa fa-fw fa-eye-slash" aria-hidden="true"></i> Hide</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="#"><i class="fa fa-fw fa-trash" aria-hidden="true"></i> Delete</a></li>
-                                </ul>
-                            </div>
+                                    <li>
+                                      <form action="{% url 'post-delete' post.id %}" method="post">
+                                        {% csrf_token %}
+                                        <input type="hidden" name="post_id" value="{{ post.id }}" />
+                                        {% if user = request.user %}
+                                          <button type="submit" class="btn btn-default delete_btn"><i class="fa fa-fw fa-trash" aria-hidden="true"></i>Delete</button>
+                                        {% endif %}
+                                      </form>
+                                    </li>
+                                </ul> -->
+                          <form action="{% url 'post-delete' post.id %}" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="post_id" value="{{ post.id }}" />
+                            {% if user = request.user %}
+                              <button type="submit" class="btn btn-default delete_btn"><i class="fa fa-fw fa-trash" aria-hidden="true"></i>Delete</button>
+                            {% endif %}
+                          </form>
+                                <!-- </div> -->
                         </div>
                     </span>
                     <hr>
                     <div class="post-content">
                         <p class="texter">{{ text }}</p>
                     </div>
-
                     <div>
                         <div class="pull-right btn-group-xs">
                             <a class="btn btn-default btn-xs"><i class="fa fa-heart" aria-hidden="true"></i> Like</a>
@@ -268,8 +345,21 @@
                     </div> -->
                 </div>
             </div>
+          {% endif %}
         {% endfor %}
-
+        <div class="pagination pages pag_posts">
+            <span class="step-links">
+                {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}"<button class="btn btn-default">previous</button></a>
+                {% endif %}
+                <span class="current">
+                   page {{ posts.number }} of {{ posts.paginator.num_pages }}.
+                </span>
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}"><button class="btn btn-default">next</button></a>
+                {% endif %}
+            </span>
+        </div>
 
       </div>
     </div>
@@ -281,6 +371,30 @@
       el.style.visibility = (el.style.visibility == "visible") ? "hidden" : "visible";
     }
   </script>
+
+  <script>
+      function lightbox(idx) {
+          //Show the slider wrapper
+          var ninjaSldr = document.getElementById("ninja-slider");
+          ninjaSldr.parentNode.style.display = "block";
+          //Then init the slider
+          //Note: The { initSliderByCallingInitFunc: true } option in the
+          // ninja-slider.js tells the page not to initiate the slider
+          // unless the following init(idx) function is called.
+          nslider.init(idx);
+          //Then mimic clicking the fullscreen button to popup the modal
+          var fsBtn = document.getElementById("fsBtn");
+          fsBtn.click();
+      }
+      function fsIconClick(isFullscreen) {
+          //Note: fsIconClick is the default event handler of the fullscreen button
+          if (isFullscreen) {
+              var ninjaSldr = document.getElementById("ninja-slider");
+              ninjaSldr.parentNode.style.display = "none";
+          }
+      }
+  </script>
+
 
 
 </body>

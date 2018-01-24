@@ -79,7 +79,12 @@
 
 .dropdown:hover .dropbtn {
     background-color: #BABABA;
+}
 
+.profile_btn a{
+  text-decoration: none;
+  color: black;
+}
 
 {% endblock %}
 </style>
@@ -89,7 +94,7 @@
   <nav class="navbar navbar-default navbar-static-top">
     <div class="cntr">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/navbar-logo.PNG' %}" /></a>
+        <a class="navbar-brand" href="{% url 'home' %}"><img src="{% static 'img/navbar-logo.png' %}" /></a>
       </div>
       <div id="navbar" class="navbar-collapse collapse">
         <ul class="nav navbar-nav">
@@ -101,13 +106,14 @@
 
         <ul class="nav navbar-nav navbar-right">
             {% if request.user.is_authenticated %}
-              <!-- <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'profile' %}">PROFILE<span class="caret"></span></a> -->
+              <!-- <li class="active" class="dropdown"><a class="dropdown-toggle" data-toggle="dropdown" href="{% url 'view_profile' %}">PROFILE<span class="caret"></span></a> -->
               <li><a href="{% url 'connect' %}">Connect</a></li>
           <li>
             <div class="dropdown">
-              <button class="dropbtn">Profile</button>
+              <button class="dropbtn profile_btn">Profile</button>
                 <div class="dropdown-content">
-                  <a href="{% url 'profile' %}">Profile</a>
+                  <a href="{% url 'view_profile' %}">Profile</a>
+                  <a href="{% url 'edit_user' %}">Edit Profile</a>
                   <a href="{% url 'edit_profile' %}">Settings</a>
                 </div>
             </div>

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block head_title %}Edit Profile | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.edit_jumbo{
+  margin-top: -2em;
+  background-color: #F7F7F7;
+  text-align: center;
+  height: 15em;
+  color: #303030;
+}
+
+.edit_jumbo h1{
+  padding-top: 1.5em;
+  font-size: 3em;
+}
+
+.edit{
+  height: 25em;
+  font-size: 2em;
+  padding-top: 3em;
+  line-height: 3em;
+}
+
+.edit input{
+  line-height: 1em;
+}
+
+.edit2{
+  background: url("{% static 'img/lauren-mancke.jpg' %}") no-repeat;
+  background-size: cover;
+  height: 50em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<body>
+
+  <div class="edit_jumbo">
+    <div class="container">
+      <h1>Tell us a little bit about yourself!</h1>
+    </div>
+  </div>
+
+  <div class="edit">
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <!-- <button type="submit">Submit</button> -->
+        <input type="submit" value="Change settings" class="btn btn-info " />
+      </form>
+    </div>
+  </div>
+
+  <div class="edit2">
+    <div class="container">
+
+    </div>
+  </div>
+
+</body>
+{% endblock %}

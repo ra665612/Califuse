@@ -7,12 +7,16 @@
 
 <style>
 {% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;;
+}
+
 .logpic{
-  background: url("{% static './img/flat-map.jpg' %}") no-repeat;
+  background: url("{% static './img/seth-schwiet.jpg' %}") no-repeat;
   background-size: cover;
-  width: 150em;
   height: 60em;
-  margin-left: -20em;
 }
 
 .forgotpass{
@@ -28,28 +32,34 @@
 
 {% block content %}
 <div class='row'>
-  <div class='col-sm-6 col-sm-offset-3'>
-    <h1>Login</h1>
-    <form method="post" action=".">
-      {% csrf_token %}
-      {{ form|crispy }}
+  <div class="container">
+    <div class='col-sm-6 col-sm-offset-3'>
+      <h1>Login</h1>
+      <form method="post" action=".">
+        {% csrf_token %}
+        {{ form|crispy }}
 
-      <input class='btn btn-block btn-primary' type="submit" value="{% trans 'Submit' %}" />
-      <input type="hidden" name="next" value="{{ next }}" />
-    </form>
+        <input class='btn btn-default btn-block' type="submit" value="{% trans 'Submit' %}" />
+        <input type="hidden" name="next" value="{{ next }}" />
+      </form>
+    </div>
   </div>
 </div>
 
 <hr/>
 <div class='row'>
-  <div class='forgotpass' class='col-sm-6 col-sm-offset-3 text-align-center'>
-    <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
-    <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+  <div class="container">
+    <div class='forgotpass' class='col-sm-6 col-sm-offset-3 text-align-center'>
+      <p>{% trans "Forgot password" %}? <a href="{% url 'auth_password_reset' %}">{% trans "Reset it" %}</a>!</p>
+      <p>{% trans "Not member" %}? <a href="{% url 'registration_register' %}">{% trans "Register" %}</a>!</p>
+    </div>
   </div>
 </div>
 
 <div class='logpic'>
+  <div class="container">
 
+  </div>
 </div>
 
 {% endblock %}

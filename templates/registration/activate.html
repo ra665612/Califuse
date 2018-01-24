@@ -4,17 +4,20 @@
 
 <style>
 {% block style %}
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
 .act_fail{
   height: 30em;
   text-align: center;
 }
 
 .failpic{
-  background: url("{% static './img/Dublin_Ireland.jpg' %}") no-repeat;
+  background: url("{% static './img/nick-morrison.jpg' %}") no-repeat;
   background-size: cover;
-  width: 150em;
   height: 40em;
-  margin-left: -20em;
   margin-top: -2em;
 }
 
@@ -23,10 +26,14 @@
 
 {% block content %}
 <div class="act_fail">
-  <p>{% trans "Account activation failed" %}</p>
+  <div class="container">
+    <p>{% trans "Account activation failed" %}</p>
+  </div>
 </div>
 
 <div class="failpic">
+  <div class="container">
 
+  </div>
 </div>
 {% endblock %}

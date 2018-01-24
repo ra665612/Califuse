@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load static %}
 
 {% block head_title %}Share | {{ block.super }} {% endblock %}
 
@@ -52,7 +53,7 @@
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  height: 40em;
+  height: 42em;
   color: white;
 }
 
@@ -98,7 +99,8 @@
 }
 
 .howitworks{
-  height: 57em;
+  /*height: 57em;*/
+  height:auto;
   /*background-color: #4A4A4A;*/
   background-color: #F2F2F2;
   /*color: #212121;*/
@@ -141,14 +143,15 @@
 }
 
 .friends{
-  height: 15em;
+  /*height: 15em;*/
+  height: auto;
   color: white;
   background-color: #212121;
 }
 
 .friends h2{
   line-height: 2em;
-  padding-top: 1.5em;
+  padding-top: 1em;
 }
 
 .different{
@@ -237,7 +240,7 @@ if ($signUpCount == 0){
     <div class="container">
       <h3>Thank you for joining the Califuse pre-launch waiting list!</h3>
       <p>
-        We'll be sure to send you and invite as soon as possible<br /> so that you may join our network and share
+        We'll be sure to send you an invite as soon as possible<br /> so that you may join our network and share
         the progress of your work
         with everyone.
       </p>
@@ -265,7 +268,7 @@ if ($signUpCount == 0){
         <a href="https://www.facebook.com/sharer/sharer.php?u={{ ref_url }}" target="_blank">
           <i class="fa fa-facebook-square fa-5x" style="color:#3b5998"></i>
         </a>
-        <a href="https://twitter.com/home?status=Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20%23Califuse {{ ref_url }}" target="_blank">
+        <a href="https://twitter.com/home?status=Present%20your%20projects%20and%20show%20off%20your%20work%20by%20using%20%23Califuse%20%0A%0AFollow%20my%20link%20below%20to%20join%20the%20network!%0A%0A {{ ref_url }}" target="_blank">
           <i class="fa fa-twitter-square fa-5x" style="color:#4099FF"></i>
         </a>
         <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ ref_url }}&title=Califuse.com&summary=Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20Califuse&source={{ ref_url }}" target="_blank">
@@ -280,68 +283,6 @@ if ($signUpCount == 0){
       </div>
     </div>
   </div>
-  <div class="howitworks">
-    <div class="container">
-      <h1>How it works</h1>
-      <h2>
-        Send invites, Friends join, you earn rewards.<br />
-        Yes It's that simple!<br />
-      </h2>
-      <div class="row">
-        <div class="col-sm-2"></div>
-        <div class="col-sm-2">
-          <i class="fa fa-play fa-5x"></i>
-          <h3>5 Joined</h3>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" id="count5" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-              0%
-            </div>
-          </div>
-          <!-- <img src="{% static 'img/califuse1.PNG' %}" /> -->
-          <p>
-            + Instant access at launch
-          </p>
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
-          <i class="fa fa-forward fa-5x" aria-hidden="true"></i>
-          <h3>10 Joined</h3>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" id="count10" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-              0%
-            </div>
-          </div>
-          <!-- <img src="{% static 'img/califuse2.PNG' %}" /> -->
-          <p>
-            + Instant access on launch<br />
-            + 6 Months 'Featured' free - lets more people discover your work
-          </p>
-        </div>
-        <div class="col-sm-1"></div>
-        <div class="col-sm-2">
-          <i class="fa fa-fast-forward fa-5x" aria-hidden="true"></i>
-          <h3>25 Joined</h3>
-          <div class="progress">
-            <div class="progress-bar" role="progressbar" id="count25" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-              0%
-            </div>
-          </div>
-          <!-- <img src="{% static 'img/califuse1.PNG' %}" /> -->
-          <p>
-            + Instant access on launch<br />
-            + 12 Months 'Featured' free - lets more people discover your work<br />
-            + Early alerts for new features added to the network
-          </p>
-        </div>
-        <div class="col-sm-2"></div>
-      </div>
-    </div>
-  </div>
-  <div class="friends">
-    <div class="container">
-      <h2>Congratulations you've had <span class="different">{{ count }}</span> friends join!<br />
-      Keep sharing to gain better rewards.</h2>
-    </div>
-  </div>
+
 
 {% endblock %}

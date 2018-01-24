@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% load crispy_forms_tags %}
 {% load staticfiles %}
+{% load static %}
 
 {% block head_title %}Welcome | {{ block.super }} {% endblock %}
 
@@ -12,13 +13,7 @@
   padding: 0;
 }
 
-.navbar {
-  display: none;
-}
 
-.footer {
-  display: none;
-}
 
 /*.thankyou{
   height: 5em;
@@ -33,10 +28,13 @@
 
 .home{
   background: url({% static 'img/unsplash_desk.jpg' %}) no-repeat;
+  /*background: url('unsplash_desk.jpg') no-repeat;*/
   background-size: cover;
   color: #F0F0F0;
-  height: 55em;
+  height: 65em;
   text-align: center;
+  background-position: center;
+  margin-top: -1.5em;
 }
 
 .home img{
@@ -56,14 +54,16 @@
 }
 
 .home h2{
-  padding-top: 3em;
+  padding-top: 5em;
   font-size: 1.5em;
+  line-height: 2em;
   /*letter-spacing: 1em;*/
 }
 
 .home p{
   /*padding-top: 1em;*/
   font-size: 1.5em;
+  text-align: center;
 }
 
 .home form{
@@ -80,6 +80,10 @@
 
 #enter-email{
   padding-top: 2em;
+}
+
+.landhead p{
+  line-height: 2em;
 }
 
 {% endblock %}
@@ -99,41 +103,39 @@
     </div> -->
     <div class="landhead">
       <img src="{% static 'img/califuse_home.png' %}" />
-      <h1>Introducing Califuse</h1>
+      <!-- <h1>Califuse</h1> -->
       <h3>A platform for students</h3>
       <p>
-        Share your work with friends, industry professionals, and companies.<br />Connect with others to see what they're working on.</h3>
+        Build and present a portfolio of your projects, and designs<br /> using pictures and communicating about 
+        the work that you have created.
+        <br /> Connect with others to see what they are working on.
+        <!-- Present your projects, share what work you have accomplished, and use pictures to show off your designs.
+         <br />Connect with others to see what they're working on.</h3> -->
       </p>
       <br />
       <h2>
-        Califuse is coming soon and will launch in private beta.
-        <br />Get your invitation and reserve your spot.
+        Califuse is currently in beta and
+        we need your help to grow our expanding network.<br />
+        Invite your friends to be apart of the community!<br />
       </h2>
-    </div>
-    <div class="col-sm-4 col-sm-offset-4">
-      <form class="form-horizontal" method="POST" action="/">
-        <div class="form-group form-group-md" id="enter-email">
-          {% csrf_token %}
-          {% if form.email.errors %}
-            {% for err in form.email.errors %}
-              <div class="alert alert-warning" role="alert">Email is required</div>
-            {% endfor %}
-          {% endif %}
-          <div class="input-group">
-            <input class="form-control" type="email" name="email" placeholder="Enter your email" />
-              <span class="input-group-btn">
-                <input type="submit" value="Request invitation" class="btn btn-default btn-block " />
-              </span>
-          </div>
-        </div>
-      </form>
+      <a href="https://twitter.com/home?status=Visit%20%40CalifuseCo%20to%20share%20projects%20and%20connect%20companies%20that%20you%20want%20to%20work%20with!%0A%0AJoin%20our%20growing%20network!%0A%0A www.Califuse.com" target="_blank">
+        <i class="fa fa-twitter-square fa-5x" style="color:#4099FF"></i>
+      </a>
+      <a href="http://www.reddit.com/submit?url=www.califuse.com&title==Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20Califuse" target="_blank">
+        <i class="fa fa-reddit-square fa-5x" style="color:#900020"></i>
+      </a>
+      <a href="https://www.facebook.com/sharer/sharer.php?u=www.califuse.com" target="_blank">
+        <i class="fa fa-facebook-square fa-5x" style="color:#3b5998"></i>
+      </a>
+      <a href="https://www.linkedin.com/shareArticle?mini=true&url=www.califuse.com&title=Califuse.com&summary=Share%20your%20work%20with%20friends%2C%20industry%20professionals%2C%20and%20companies%20using%20Califuse&source=www.califuse.com" target="_blank">
+        <i class="fa fa-linkedin-square fa-5x" style="color:#007bb6"></i>
+      </a>
+      <a href='https://plus.google.com/share?url=www.califuse.com' target="_blank">
+        <i class="fa fa-google-plus-square fa-5x" style="color:#D34836"></i>
+      </a>
+
     </div>
   </div>
 </div>
-<!-- <div class="cartoon">
-  <div class="container">
-
-  </div>
-</div> -->
 
 {% endblock %}

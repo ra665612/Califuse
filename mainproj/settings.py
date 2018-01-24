@@ -20,23 +20,26 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.8/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = '$d@68n&#3#vra&64=(tjdfjz4rxska^w0!6^sueq)b45!*)bs%'
-SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
+SECRET_KEY = '$d@68n&#3#vra&64=(tjdfjz4rxska^w0!6^sueq)b45!*)bs%'
+# SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'cg#p$g+j9tax!#a3cup@1$8obt2_+&k3q+pmu)5%asj6yjpkag')
 # SECRET_KEY = os.environ['SECRET_KEY']
 # SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = True
-# DEBUG = bool( os.environ.get('DJANGO_DEBUG', True) )
-DEBUG = False
+DEBUG = True
 
-CSRF_COOKIE_SECURE= True
-SESSION_COOKIE_SECURE= True
+
+# CSRF_COOKIE_SECURE= True
+SESSION_COOKIE_DOMAIN = None
+# SESSION_COOKIE_SECURE= True
+
+SECURE_BROWSER_XSS_FILTER = True
+SECURE_SSL_REDIRECT = False
+SECURE_CONTENT_TYPE_NOSNIFF = True
 
 CONN_MAX_AGE= None
 
-CSRF_COOKIE_HTTPONLY = True
+# CSRF_COOKIE_HTTPONLY = True
 
 ALLOWED_HOSTS = [
-    'www.califuse.com'
 ]
 
 
@@ -60,7 +63,7 @@ INSTALLED_APPS = (
     'cali',
     'mainproj',
     'connect',
-    'joins',
+    # 'joins',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -72,13 +75,11 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.security.SecurityMiddleware',
-    'mainproj.middleware.ReferMiddleware',
+    # 'mainproj.middleware.ReferMiddleware',
 )
 X_FRAME_OPTIONS = 'DENY'
 
-SECURE_BROWSER_XSS_FILTER = True
-SECURE_SSL_REDIRECT = True
-SECURE_CONTENT_TYPE_NOSNIFF = True
+
 
 
 ROOT_URLCONF = 'mainproj.urls'
@@ -109,13 +110,18 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        # 'NAME': 'califuse_startup',
+        # 'USER': 'califuse_Ryan',
+        # 'HOST': 'localhost',
+        # 'PASSWORD': 'georgia23',
+        # 'PORT': '3306',
     }
 }
 
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.8/topics/i18n/
-
+#This is a test 1
 LANGUAGE_CODE = 'en-us'
 
 TIME_ZONE = 'UTC'
@@ -126,11 +132,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-SHARE_URL = "http://califuse.com/?ref="
-# SHARE_URL = "http://127.0.0.1:8000/?ref="
+SHARE_URL = "http://127.0.0.1:8000/?ref="
 
 # Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/1.8/howto/static-files/
 
 STATIC_URL = '/static/'
 
@@ -141,23 +145,31 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static_in_pro", "our_static"),
 ]
 
 
+
+
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'mainproj/media')
-# MEDIA_ROOT = os.path.join(os.path.dirname(BASE_DIR), "static_in_env", "media_root")
 
 AUTH_PROFILE_MODULE = "mainproj.UserProfile"
 
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
 
 #Django registration redux settings
 ACCOUNT_ACTIVATION_DAYS = 365
 REGISTRATION_AUTO_LOGIN = True
 SITE_ID = 1
 LOGIN_REDIRECT_URL = '/' #Change to '/Profile/' to redirect login to profile page
-REGISTRATION_AUTO_LOGIN = True
 
-EMAIL_HOST = 'localhost'
-EMAIL_PORT = 1025
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 465
+EMAIL_USE_TLS = True
+
+EMAIL_HOST_USER = 'my@gmail.com'
+EMAIL_HOST_PASSWORD = 'my_emails_password'
+
+# EMAIL_HOST = 'localhost'
+# EMAIL_PORT = 1025
 #
 # Email settings
 # EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

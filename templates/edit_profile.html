@@ -1,22 +1,82 @@
 {% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
 
-{% block head_title %}Edit Profile | {{ block.super }} {% endblock %}
+{% block head_title %}Edit Settings | {{ block.super }} {% endblock %}
 
 <style>
 {% block style %}
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+.edit_jumbo{
+  margin-top: -2em;
+  background-color: #A8A8A8;
+  text-align: center;
+  height: 20em;
+  /*color: #303030;*/
+  color: white
+}
+
+.edit_jumbo h1{
+  padding-top: 2em;
+  font-size: 3em;
+  letter-spacing: 0.4em;
+}
+
+.edit{
+  height: 30em;
+  font-size: 2em;
+  padding-top: 3em;
+  line-height: 2em;
+}
+
+.edit input{
+  line-height: 1em;
+}
+
+.edit2{
+  background: url("{% static 'img/joshua-davis.jpg' %}") no-repeat;
+  background-size: cover;
+  height: 50em;
+}
+
+.edit form{
+  padding-left: 5em;
+  padding-right: 10em;
+}
 
 {% endblock %}
 </style>
 
 {% block content %}
+<body>
 
-<div class="container">
-  <form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Submit</button>
-  </form>
-</div>
+  <div class="edit_jumbo">
+    <div class="container">
+      <h1>Change your profile settings</h1>
+    </div>
+  </div>
 
+  <div class="edit">
+    <div class="container">
+      <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <!-- <button type="submit">Submit</button> -->
+        <input type="submit" value="Change settings" class="btn btn-default " />
+      </form>
+    </div>
+  </div>
 
+  <div class="edit2">
+    <div class="container">
+
+    </div>
+  </div>
+
+</body>
 {% endblock %}

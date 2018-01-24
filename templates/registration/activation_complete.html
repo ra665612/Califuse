@@ -4,6 +4,12 @@
 
 <style>
 {% block style %}
+.container{
+  width: 100%;
+  margin: 0;
+  padding: 0;;
+}
+
 .act_complete{
   height: 30em;
   text-align: center;
@@ -15,11 +21,9 @@
 }
 
 .welcomepic{
-  background: url("{% static './img/Dublin_Ireland.jpg' %}") no-repeat;
+  background: url("{% static './img/nick-morrison.jpg' %}") no-repeat;
   background-size: cover;
-  width: 150em;
   height: 40em;
-  margin-left: -20em;
   margin-top: -2em;
 }
 
@@ -28,12 +32,16 @@
 
 {% block content %}
 <div class="act_complete">
-  <h1 class="welcome"> Welcome to Califuse!</h1>
-  <p class='lead'>{% trans "Your account is now activated." %}</p>
+  <div class="container">
+    <h1 class="welcome"> Welcome to Califuse!</h1>
+    <p class='lead'>{% trans "Your account is now activated." %}</p>
+  </div>
 </div>
 
 <div class="welcomepic">
+  <div class="container">
 
+  </div>
 </div>
 
 {% endblock %}

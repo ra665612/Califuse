@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% load crispy_forms_tags %}
+
+
+{% block head_title %}Edit Profile | {{ block.super }} {% endblock %}
+
+<style>
+{% block style %}
+.container{
+  margin: 0;
+  padding: 0;
+  width: 100%;
+
+}
+
+/*.container input{
+  width: 100%;
+  clear: both;
+}*/
+
+.edit_jumbo{
+  margin-top: -2em;
+  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#5c5c5c+0,e3e3e3+100 */
+  background: #5c5c5c; /* Old browsers */
+  background: -moz-linear-gradient(-45deg, #5c5c5c 0%, #e3e3e3 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(-45deg, #5c5c5c 0%,#e3e3e3 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(135deg, #5c5c5c 0%,#e3e3e3 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#5c5c5c', endColorstr='#e3e3e3',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+  text-align: center;
+  height: 20em;
+  /*color: #303030;*/
+  color: white;
+}
+
+.edit_jumbo h1{
+  padding-top: 2em;
+  font-size: 3em;
+  letter-spacing: 0.4em;
+}
+
+.edit{
+  height: 50em;
+  font-size: 2em;
+  padding-top: 3em;
+  line-height: 2em;
+}
+
+.edit input{
+  line-height: 1em;
+}
+
+.edit form{
+  padding-left: 5em;
+  padding-right: 10em;
+}
+
+.edit2{
+  background: url("{% static 'img/lauren-mancke.jpg' %}") no-repeat;
+  background-size: cover;
+  height: 50em;
+}
+
+{% endblock %}
+</style>
+
+{% block content %}
+<body>
+
+  <div class="edit_jumbo">
+    <div class="container">
+      <h1>Tell us a little bit about yourself!</h1>
+    </div>
+  </div>
+
+  <div class="edit">
+    <div class="container">
+      <form method="post" enctype='multipart/form-data'>
+        {% csrf_token %}
+        {{ form|crispy }}
+        <!-- <button type="submit">Submit</button> -->
+        <input type="submit" value="Update Profile" class="btn btn-default" />
+      </form>
+    </div>
+  </div>
+
+  <div class="edit2">
+    <div class="container">
+
+    </div>
+  </div>
+
+</body>
+{% endblock %}
